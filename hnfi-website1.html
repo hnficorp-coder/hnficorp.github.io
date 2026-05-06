@@ -1,0 +1,1825 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>HNFi Corp. — Live Better, Stay Connected!</title>
+<meta name="description" content="HNFi Corp. (Hankook Natural Food Initiative) — The No.1 Food-Tech Initiative connecting nature's purest resources to global markets through data-driven precision." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..900,0..100,0..1&family=Inter+Tight:wght@300..700&family=JetBrains+Mono:wght@400;500&family=Noto+Serif+KR:wght@300..700&family=Noto+Sans+KR:wght@300..700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* Color system — bone paper × deep forest teal × acid accent */
+  --bone:#F1ECE0;
+  --bone-warm:#E8E0CD;
+  --paper:#FAF6EC;
+  --ink:#0A0A0A;
+  --ink-soft:#1A1A1A;
+  --teal:#0E3B36;
+  --teal-deep:#072925;
+  --teal-soft:#1A5D55;
+  --acid:#D4FF3D;
+  --terracotta:#C4633A;
+  --rust:#8C4628;
+  --violet:#6E1566;
+  --violet-soft:#8E2A85;
+  --line:rgba(10,10,10,.18);
+  --line-soft:rgba(10,10,10,.08);
+  --line-cream:rgba(241,236,224,.18);
+
+  --serif:'Fraunces',ui-serif,Georgia,serif;
+  --sans:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  --kr-serif:'Noto Serif KR',serif;
+  --kr-sans:'Noto Sans KR',sans-serif;
+
+  --maxw:1480px;
+  --pad:clamp(20px,4vw,64px);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bone);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none}
+
+::selection{background:var(--acid);color:var(--ink)}
+
+/* ============ GRAIN OVERLAY ============ */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:200;
+  opacity:.07;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='1'/></svg>");
+}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px var(--pad);
+  background:rgba(241,236,224,.86);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+  transition:padding .3s ease;
+}
+.nav__brand{display:flex;align-items:center;gap:14px;font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-.01em}
+.nav__mark{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--teal);color:var(--bone);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-weight:600;font-size:15px;font-style:italic;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  position:relative;
+}
+.nav__mark::after{
+  content:'';position:absolute;top:0;right:0;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--violet);
+  border:2px solid var(--bone);
+  box-sizing:content-box;
+}
+.nav__brand small{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.16em;color:var(--ink);opacity:.55;margin-left:2px}
+.nav__menu{display:flex;align-items:center;gap:34px;font-size:13px;font-weight:500}
+.nav__menu a{position:relative;padding:6px 0}
+.nav__menu a::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform .35s cubic-bezier(.7,0,.2,1)}
+.nav__menu a:hover::after{transform:scaleX(1)}
+.nav__cta{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;border-radius:999px;
+  background:var(--ink);color:var(--bone);
+  font-size:12px;font-weight:600;letter-spacing:.02em;
+  transition:transform .25s ease,background .25s ease;
+}
+.nav__cta:hover{background:var(--teal);transform:translateY(-1px)}
+.nav__cta::after{content:'→'}
+@media (max-width:880px){.nav__menu{display:none}}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  padding:140px var(--pad) 60px;
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  background:
+    radial-gradient(ellipse 80% 60% at 90% 100%,rgba(212,255,61,.16),transparent 60%),
+    radial-gradient(ellipse 60% 50% at 0% 0%,rgba(196,99,58,.10),transparent 60%),
+    var(--bone);
+  overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero__meta{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.18em;
+  opacity:.65;margin-bottom:auto;padding-top:32px;
+}
+.hero__meta b{font-weight:500}
+.hero__meta-right{text-align:right}
+.hero__title{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(48px,11vw,180px);
+  line-height:.92;letter-spacing:-.04em;
+  margin:0 0 8px;
+  font-variation-settings:"SOFT" 30,"opsz" 144,"WONK" 1;
+}
+.hero__title em{
+  font-style:italic;color:var(--teal);
+  font-variation-settings:"SOFT" 100,"opsz" 144,"WONK" 1;
+}
+.hero__title span{display:block}
+.hero__title .l2{padding-left:14vw}
+.hero__title .l3{display:flex;align-items:flex-end;gap:.4em;flex-wrap:wrap}
+.hero__connect-arc{
+  display:inline-block;
+  font-size:.55em;font-style:italic;color:var(--violet);
+  vertical-align:baseline;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+}
+.hero__lead{
+  display:grid;grid-template-columns:1.4fr 1fr;gap:60px;
+  margin-top:48px;padding-top:32px;border-top:1px solid var(--line);
+  align-items:start;
+}
+.hero__lead-kr{
+  font-family:var(--kr-serif);font-weight:300;
+  font-size:clamp(15px,1.4vw,19px);line-height:1.7;
+  color:var(--ink-soft);max-width:46ch;
+}
+.hero__lead-kr b{color:var(--teal);font-weight:500}
+.hero__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-self:end}
+.hero__stat{display:flex;flex-direction:column;gap:4px}
+.hero__stat b{font-family:var(--serif);font-weight:400;font-size:clamp(36px,4.5vw,58px);line-height:1;letter-spacing:-.04em}
+.hero__stat span{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.16em;opacity:.6}
+.hero__scroll{
+  position:absolute;left:var(--pad);bottom:24px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  opacity:.5;display:flex;align-items:center;gap:10px;
+}
+.hero__scroll::after{
+  content:'';width:60px;height:1px;background:var(--ink);
+  animation:slide 2.4s ease-in-out infinite;transform-origin:left;
+}
+@keyframes slide{0%,100%{transform:scaleX(.3)}50%{transform:scaleX(1)}}
+@media (max-width:880px){
+  .hero__title .l2{padding-left:0}
+  .hero__lead{grid-template-columns:1fr;gap:32px}
+  .hero__stats{grid-template-columns:repeat(3,1fr);gap:14px}
+}
+
+/* ============ TICKER ============ */
+.ticker{
+  background:var(--ink);color:var(--bone);
+  padding:18px 0;overflow:hidden;
+  border-block:1px solid var(--ink);
+  position:relative;
+}
+.ticker__track{
+  display:flex;gap:60px;
+  width:max-content;
+  animation:ticker 50s linear infinite;
+  font-family:var(--serif);font-weight:300;font-size:clamp(22px,3vw,42px);letter-spacing:-.02em;
+  white-space:nowrap;
+}
+.ticker__track span{display:inline-flex;align-items:center;gap:60px}
+.ticker__track span::after{content:'✦';color:var(--acid);font-size:.6em}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+section{padding:clamp(80px,10vw,160px) var(--pad);position:relative}
+.section__head{
+  display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:end;
+  border-bottom:1px solid var(--line);padding-bottom:24px;margin-bottom:64px;
+}
+.section__num{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  opacity:.6;display:flex;flex-direction:column;gap:4px;
+}
+.section__num b{font-family:var(--serif);font-weight:300;font-size:36px;color:var(--teal);font-style:italic;line-height:1}
+.section__title{
+  font-family:var(--serif);font-weight:300;font-variation-settings:"SOFT" 30,"WONK" 1;
+  font-size:clamp(36px,5.5vw,82px);line-height:1;letter-spacing:-.03em;
+  margin:0;
+}
+.section__title em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+
+/* ============ PHILOSOPHY ============ */
+.philosophy{background:var(--bone)}
+.phi-grid{
+  display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:start;
+}
+.phi-statement{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(28px,3.6vw,52px);line-height:1.15;letter-spacing:-.02em;
+  font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.phi-statement em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+.phi-statement .acid{
+  background:linear-gradient(transparent 60%,var(--acid) 60%);
+  padding:0 .1em;
+}
+.phi-cards{display:flex;flex-direction:column;gap:0}
+.phi-card{
+  border-top:1px solid var(--line);
+  padding:32px 0 28px;display:grid;grid-template-columns:auto 1fr;gap:28px;
+  transition:padding .35s ease;
+}
+.phi-card:last-child{border-bottom:1px solid var(--line)}
+.phi-card:hover{padding-left:14px}
+.phi-card__label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--terracotta);font-weight:500;
+}
+.phi-card__label b{display:block;font-family:var(--serif);font-weight:400;font-size:38px;font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1;line-height:1;margin-top:4px}
+.phi-card h3{
+  font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:-.01em;
+  margin:0 0 8px;
+}
+.phi-card p{
+  margin:0;font-family:var(--kr-serif);font-weight:300;
+  font-size:15px;line-height:1.7;color:var(--ink-soft);
+}
+.slogan-block{
+  margin-top:60px;padding:48px 56px;
+  background:var(--ink);color:var(--bone);
+  border-radius:8px;
+  display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.slogan-block::before{
+  content:'';position:absolute;right:-100px;top:-100px;
+  width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,var(--acid),transparent 70%);
+  opacity:.25;
+}
+.slogan-block__label{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.slogan-block__text{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(28px,3.4vw,46px);line-height:1.1;letter-spacing:-.02em;
+  font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.slogan-block__text em{color:var(--acid);font-style:italic;font-variation-settings:"SOFT" 100,"WONK" 1}
+@media (max-width:880px){
+  .phi-grid{grid-template-columns:1fr;gap:48px}
+  .slogan-block{grid-template-columns:1fr;gap:20px;padding:32px}
+}
+
+/* ============ COMPETENCIES ============ */
+.competencies{background:var(--paper)}
+.comp-intro{
+  display:grid;grid-template-columns:1fr 1.4fr;gap:60px;margin-bottom:80px;align-items:end;
+}
+.comp-intro p{
+  font-family:var(--kr-serif);font-weight:300;
+  font-size:clamp(15px,1.3vw,18px);line-height:1.7;color:var(--ink-soft);
+  margin:0;
+}
+.comp-intro .badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 14px;border:1px solid var(--teal);border-radius:999px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);
+  margin-bottom:20px;
+}
+.comp-intro .badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.comp-card{
+  background:var(--paper);
+  padding:48px 36px;display:flex;flex-direction:column;gap:18px;
+  position:relative;min-height:420px;
+  transition:background .4s ease;
+}
+.comp-card:hover{background:var(--bone)}
+.comp-card__num{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  color:var(--teal);font-weight:500;
+}
+.comp-card__icon{
+  width:64px;height:64px;border:1px solid var(--ink);border-radius:50%;
+  display:grid;place-items:center;margin-bottom:8px;
+  font-family:var(--serif);font-style:italic;font-size:28px;color:var(--teal);
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  transition:transform .5s cubic-bezier(.7,0,.2,1),background .4s ease,color .4s ease;
+}
+.comp-card:hover .comp-card__icon{transform:rotate(-12deg);background:var(--teal);color:var(--acid)}
+.comp-card h3{
+  font-family:var(--serif);font-weight:400;font-size:28px;letter-spacing:-.01em;
+  margin:0;line-height:1.1;
+}
+.comp-card h3 em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+.comp-card p{
+  font-family:var(--kr-serif);font-weight:300;font-size:14px;line-height:1.7;color:var(--ink-soft);
+  margin:0;
+}
+.comp-card ul{list-style:none;margin:auto 0 0;padding:20px 0 0;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--ink-soft)}
+.comp-card ul li{display:flex;align-items:flex-start;gap:8px;font-family:var(--kr-sans);font-weight:400}
+.comp-card ul li::before{content:'';flex:none;width:14px;height:1px;background:var(--terracotta);margin-top:8px}
+
+.idms-band{
+  margin-top:0;background:var(--teal);color:var(--bone);
+  padding:36px 48px;display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;
+  border:1px solid var(--teal);border-top:none;
+}
+.idms-band__tag{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--acid);opacity:.9}
+.idms-band__title{font-family:var(--serif);font-weight:300;font-size:clamp(24px,2.4vw,34px);letter-spacing:-.02em;margin:0;font-variation-settings:"SOFT" 30,"WONK" 1}
+.idms-band__title em{font-style:italic;color:var(--acid);font-variation-settings:"SOFT" 100,"WONK" 1}
+.idms-band__desc{font-family:var(--kr-serif);font-weight:300;font-size:14px;line-height:1.7;opacity:.85;max-width:50ch}
+
+@media (max-width:1080px){.comp-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:740px){.comp-grid{grid-template-columns:1fr}.comp-intro{grid-template-columns:1fr;gap:32px}.idms-band{grid-template-columns:1fr;gap:14px;padding:28px}}
+
+/* ============ COLOR SYSTEM ============ */
+.colorsystem{background:var(--bone-warm);position:relative;overflow:hidden}
+.colorsystem::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,
+    var(--teal) 0% 20%,
+    var(--acid) 20% 40%,
+    var(--terracotta) 40% 60%,
+    var(--bone) 60% 80%,
+    var(--violet) 80% 100%);
+}
+.cs-intro{
+  display:grid;grid-template-columns:1fr 1.2fr;gap:60px;margin-bottom:80px;align-items:end;
+}
+.cs-intro h3{
+  font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,48px);line-height:1.05;letter-spacing:-.02em;
+  margin:0;font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.cs-intro h3 em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+.cs-intro p{
+  font-family:var(--kr-serif);font-weight:300;font-size:15px;line-height:1.7;color:var(--ink-soft);
+  margin:0;
+}
+
+/* Color Cards */
+.cs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:48px}
+.cs-card{
+  display:flex;flex-direction:column;
+  border:1px solid var(--line);background:var(--paper);
+  overflow:hidden;
+  transition:transform .4s cubic-bezier(.7,0,.2,1),box-shadow .4s ease;
+  cursor:pointer;
+}
+.cs-card:hover{transform:translateY(-8px);box-shadow:0 24px 48px -16px rgba(10,10,10,.18)}
+.cs-card__chip{
+  height:200px;position:relative;
+  display:flex;align-items:flex-end;justify-content:flex-start;
+  padding:18px;
+}
+.cs-card__chip-num{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  background:rgba(255,255,255,.85);color:var(--ink);
+  padding:5px 9px;border-radius:999px;font-weight:500;
+}
+.cs-card[data-color="bone"] .cs-card__chip{background:var(--bone)}
+.cs-card[data-color="bone"] .cs-card__chip-num{background:rgba(14,59,54,.08);color:var(--ink)}
+.cs-card[data-color="teal"] .cs-card__chip{background:var(--teal)}
+.cs-card[data-color="teal"] .cs-card__chip-num{background:rgba(241,236,224,.18);color:var(--bone)}
+.cs-card[data-color="acid"] .cs-card__chip{background:var(--acid)}
+.cs-card[data-color="acid"] .cs-card__chip-num{background:rgba(10,10,10,.08);color:var(--ink)}
+.cs-card[data-color="terracotta"] .cs-card__chip{background:var(--terracotta)}
+.cs-card[data-color="terracotta"] .cs-card__chip-num{background:rgba(255,255,255,.85);color:var(--ink)}
+.cs-card[data-color="violet"] .cs-card__chip{background:var(--violet)}
+.cs-card[data-color="violet"] .cs-card__chip-num{background:rgba(241,236,224,.20);color:var(--bone)}
+
+.cs-card__body{padding:22px 20px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.cs-card__hex{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--ink-soft);font-weight:500}
+.cs-card__name{
+  font-family:var(--serif);font-weight:400;font-style:italic;
+  font-size:22px;letter-spacing:-.01em;line-height:1.1;margin:0;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+}
+.cs-card__name-en{display:block;font-family:var(--serif);font-style:normal;font-weight:500;font-size:13px;color:var(--ink-soft);letter-spacing:.04em;margin-top:3px}
+.cs-card__keywords{
+  display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px;
+}
+.cs-card__keywords span{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 7px;border:1px solid var(--line);border-radius:999px;color:var(--ink-soft);
+}
+.cs-card__desc{
+  font-family:var(--kr-serif);font-weight:300;font-size:12.5px;line-height:1.65;color:var(--ink-soft);
+  margin:0;flex:1;
+}
+.cs-card__copy{
+  margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);
+  font-family:var(--serif);font-style:italic;font-size:13px;line-height:1.45;color:var(--teal);
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+}
+.cs-card[data-color="violet"] .cs-card__copy{color:var(--violet)}
+.cs-card[data-color="terracotta"] .cs-card__copy{color:var(--rust)}
+
+/* Flow Diagram */
+.cs-flow{
+  margin-top:48px;padding:48px 56px;
+  background:var(--ink);color:var(--bone);
+  border-radius:8px;position:relative;overflow:hidden;
+}
+.cs-flow__label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--acid);margin-bottom:24px;
+}
+.cs-flow__title{
+  font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.4vw,32px);line-height:1.2;letter-spacing:-.02em;
+  margin:0 0 36px;max-width:64ch;font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.cs-flow__title em{font-style:italic;color:var(--acid);font-variation-settings:"SOFT" 100,"WONK" 1}
+.cs-flow__steps{
+  display:grid;grid-template-columns:repeat(5,1fr) ;gap:6px;align-items:stretch;
+}
+.cs-flow__step{
+  display:flex;flex-direction:column;gap:8px;
+  padding:18px 14px 18px;
+  border-top:3px solid;
+  position:relative;
+}
+.cs-flow__step:not(:last-child)::after{
+  content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
+  font-family:var(--sans);font-size:14px;color:var(--bone);opacity:.4;
+}
+.cs-flow__step[data-c="teal"]{border-color:var(--teal-soft)}
+.cs-flow__step[data-c="acid"]{border-color:var(--acid)}
+.cs-flow__step[data-c="terracotta"]{border-color:var(--terracotta)}
+.cs-flow__step[data-c="bone"]{border-color:var(--bone)}
+.cs-flow__step[data-c="violet"]{border-color:var(--violet-soft)}
+.cs-flow__step b{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;opacity:.6;font-weight:500}
+.cs-flow__step h4{font-family:var(--serif);font-weight:400;font-size:18px;letter-spacing:-.01em;margin:2px 0 4px;line-height:1.15}
+.cs-flow__step p{font-family:var(--kr-sans);font-weight:300;font-size:12px;line-height:1.5;opacity:.75;margin:0}
+
+@media (max-width:1080px){
+  .cs-grid{grid-template-columns:repeat(2,1fr)}
+  .cs-flow__steps{grid-template-columns:repeat(2,1fr)}
+  .cs-flow__step:not(:last-child)::after{display:none}
+}
+@media (max-width:560px){
+  .cs-grid{grid-template-columns:1fr}
+  .cs-flow{padding:32px 24px}
+  .cs-flow__steps{grid-template-columns:1fr}
+  .cs-intro{grid-template-columns:1fr;gap:24px}
+}
+
+/* ============ ABOUT THE i ============ */
+.about-i{
+  background:var(--ink);color:var(--bone);
+  position:relative;overflow:hidden;
+}
+.about-i::before{
+  content:'';position:absolute;left:-15%;top:50%;
+  width:55vw;height:55vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(110,21,102,.22),transparent 65%);
+  pointer-events:none;
+  transform:translateY(-50%);
+}
+.about-i .section__head{border-color:var(--line-cream)}
+.about-i .section__num{opacity:.7}
+.about-i .section__num b{color:var(--violet-soft)}
+.about-i .section__title em{color:var(--violet-soft)}
+
+.ai-grid{
+  display:grid;grid-template-columns:0.85fr 1.15fr;gap:80px;align-items:center;
+  position:relative;z-index:1;
+}
+
+/* Giant lowercase i glyph */
+.ai-glyph{
+  font-family:var(--serif);font-style:italic;
+  font-variation-settings:"SOFT" 100,"opsz" 144,"WONK" 1;
+  font-weight:300;
+  font-size:clamp(280px,38vw,560px);
+  line-height:.85;
+  color:var(--bone);
+  letter-spacing:-.04em;
+  text-align:center;
+  position:relative;
+  padding:40px 0;
+  user-select:none;
+}
+.ai-glyph::before{
+  /* Sub-label */
+  content:'lower-case';
+  position:absolute;top:50%;left:0;right:0;
+  font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--bone);opacity:.35;font-style:normal;font-weight:500;
+  font-variation-settings:normal;
+  transform:translateY(-50%) rotate(-90deg);
+  transform-origin:center;
+  pointer-events:none;
+}
+.ai-glyph__hex{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  color:var(--bone);opacity:.35;font-style:normal;font-weight:500;
+  font-variation-settings:normal;
+}
+
+/* Right content */
+.ai-content h3{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(28px,3.6vw,52px);line-height:1.1;letter-spacing:-.02em;
+  margin:0 0 20px;font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.ai-content h3 em{font-style:italic;color:var(--violet-soft);font-variation-settings:"SOFT" 100,"WONK" 1}
+.ai-content > p{
+  font-family:var(--kr-serif);font-weight:300;font-size:15px;line-height:1.75;
+  opacity:.78;margin:0 0 36px;max-width:54ch;
+}
+
+.ai-meanings{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid var(--line-cream)}
+.ai-meaning{
+  display:grid;grid-template-columns:auto 1fr auto;gap:24px;
+  padding:24px 12px;border-bottom:1px solid var(--line-cream);
+  align-items:center;
+  transition:background .35s ease,padding-left .35s ease;
+}
+.ai-meaning:hover{background:rgba(110,21,102,.08);padding-left:24px}
+.ai-meaning__symbol{
+  font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:46px;line-height:1;color:var(--violet-soft);
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  width:60px;text-align:center;
+}
+.ai-meaning__symbol--pi{font-size:52px;font-style:normal}
+.ai-meaning__body h4{
+  font-family:var(--serif);font-weight:400;font-size:20px;letter-spacing:-.01em;
+  margin:0 0 4px;line-height:1.2;
+}
+.ai-meaning__body p{
+  font-family:var(--kr-sans);font-weight:300;font-size:13px;line-height:1.55;
+  opacity:.7;margin:0;
+}
+.ai-meaning__num{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+  color:var(--violet-soft);opacity:.7;font-weight:500;
+  align-self:flex-start;padding-top:6px;
+}
+
+.ai-quote{
+  margin-top:36px;padding:28px 32px;
+  border-left:3px solid var(--violet);
+  background:rgba(110,21,102,.10);
+  font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(18px,1.7vw,22px);line-height:1.45;letter-spacing:-.01em;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+}
+.ai-quote em{color:var(--violet-soft);font-style:italic;font-variation-settings:"SOFT" 100,"WONK" 1}
+.ai-quote small{
+  display:block;margin-top:14px;
+  font-family:var(--mono);font-size:10px;font-style:normal;letter-spacing:.18em;text-transform:uppercase;
+  opacity:.55;font-weight:500;font-variation-settings:normal;
+}
+
+@media (max-width:1080px){
+  .ai-grid{grid-template-columns:1fr;gap:48px}
+  .ai-glyph{font-size:clamp(200px,42vw,360px);padding:20px 0}
+  .ai-glyph::before{display:none}
+}
+@media (max-width:560px){
+  .ai-meaning{grid-template-columns:auto 1fr;gap:14px;padding:18px 8px}
+  .ai-meaning__num{display:none}
+  .ai-quote{padding:22px 20px}
+}
+
+/* ============ BUSINESS AREAS ============ */
+.business{background:var(--bone)}
+.biz-list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.biz-row{
+  display:grid;grid-template-columns:80px 1fr 1.2fr 1fr 60px;gap:32px;
+  padding:36px 12px;border-bottom:1px solid var(--line);
+  align-items:start;cursor:pointer;
+  transition:background .35s ease,padding .35s ease;
+  position:relative;
+}
+.biz-row:hover{background:rgba(14,59,54,.04);padding-left:24px}
+.biz-row__num{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--teal);font-weight:500;padding-top:6px}
+.biz-row__title{
+  font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.4vw,46px);
+  letter-spacing:-.02em;line-height:1;margin:0;
+  font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.biz-row__title em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+.biz-row__title small{display:block;font-family:var(--kr-sans);font-weight:500;font-size:13px;color:var(--terracotta);margin-top:8px;letter-spacing:0;font-style:normal}
+.biz-row__desc{
+  font-family:var(--kr-serif);font-weight:300;font-size:14px;line-height:1.7;color:var(--ink-soft);
+  padding-top:8px;
+}
+.biz-row__desc b{color:var(--violet);font-weight:500}
+.biz-row__tags{display:flex;flex-wrap:wrap;gap:6px;padding-top:8px}
+.biz-row__tags span{
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;
+  padding:4px 10px;border:1px solid var(--line);border-radius:999px;
+  background:var(--paper);
+}
+.biz-row__tags span.tag-core{
+  background:var(--violet);color:var(--bone);border-color:var(--violet);
+}
+.biz-row__arrow{
+  align-self:center;justify-self:end;
+  width:42px;height:42px;border:1px solid var(--ink);border-radius:50%;
+  display:grid;place-items:center;font-size:14px;
+  transition:background .3s ease,color .3s ease,transform .35s ease;
+}
+.biz-row:hover .biz-row__arrow{background:var(--ink);color:var(--bone);transform:rotate(-45deg)}
+
+@media (max-width:980px){
+  .biz-row{grid-template-columns:auto 1fr;gap:14px;padding:28px 12px}
+  .biz-row__num{grid-row:1;grid-column:1}
+  .biz-row__title{grid-row:1;grid-column:2}
+  .biz-row__desc{grid-row:2;grid-column:1/-1}
+  .biz-row__tags{grid-row:3;grid-column:1/-1}
+  .biz-row__arrow{display:none}
+}
+
+/* ============ TIMELINE ============ */
+.timeline{background:var(--ink);color:var(--bone);padding-bottom:120px}
+.timeline .section__head{border-color:var(--line-cream)}
+.timeline .section__num{opacity:.7}
+.timeline .section__num b{color:var(--acid)}
+.timeline .section__title em{color:var(--acid)}
+
+.tl-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px;
+  font-family:var(--kr-serif);font-weight:300;font-size:15px;line-height:1.7;opacity:.8;
+}
+.tl-intro p{margin:0}
+
+.tl-era{margin-bottom:96px;position:relative}
+.tl-era:last-child{margin-bottom:0}
+.tl-era__head{
+  display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:end;
+  padding-bottom:24px;margin-bottom:48px;border-bottom:1px solid var(--line-cream);
+}
+.tl-era__years{
+  font-family:var(--serif);font-weight:300;font-style:italic;
+  font-size:clamp(48px,8vw,128px);line-height:.9;letter-spacing:-.04em;
+  color:var(--acid);
+  font-variation-settings:"SOFT" 100,"opsz" 144,"WONK" 1;
+}
+.tl-era__chapter{
+  font-family:var(--serif);font-weight:300;font-size:clamp(22px,2.8vw,40px);
+  letter-spacing:-.02em;line-height:1.05;margin:0;
+  max-width:18ch;
+}
+.tl-era__chapter b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--terracotta);margin-bottom:8px}
+.tl-era__count{
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  opacity:.6;text-align:right;
+}
+.tl-era__count b{display:block;font-family:var(--serif);font-style:italic;font-weight:300;font-size:46px;color:var(--bone);opacity:1;margin-top:4px}
+
+.tl-events{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+.tl-event{
+  padding:28px 36px 28px 0;border-top:1px solid var(--line-cream);
+  display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:start;
+  transition:padding .3s ease;
+}
+.tl-events .tl-event:nth-child(odd){padding-right:36px}
+.tl-events .tl-event:nth-child(even){border-left:1px solid var(--line-cream);padding-left:36px}
+.tl-event:hover{background:rgba(212,255,61,.04)}
+.tl-event__date{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+  color:var(--acid);font-weight:500;padding-top:4px;
+}
+.tl-event__date b{display:block;font-family:var(--serif);font-weight:300;font-style:italic;font-size:28px;color:var(--bone);margin-bottom:2px;letter-spacing:-.02em}
+.tl-event h4{
+  font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.3;letter-spacing:-.01em;
+  margin:0 0 6px;
+}
+.tl-event h4 em{font-style:italic;color:var(--acid);font-variation-settings:"SOFT" 100,"WONK" 1}
+.tl-event p{
+  font-family:var(--kr-sans);font-weight:300;font-size:13px;line-height:1.6;
+  opacity:.75;margin:0;
+}
+.tl-event__pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;border:1px solid rgba(212,255,61,.4);color:var(--acid);
+  margin-top:10px;
+}
+.tl-event[data-tag="award"] .tl-event__pill::before{content:'★';color:var(--acid)}
+.tl-event[data-tag="vendor"] .tl-event__pill::before{content:'◆';color:var(--acid)}
+.tl-event[data-tag="export"] .tl-event__pill::before{content:'→';color:var(--acid)}
+.tl-event[data-tag="pb"] .tl-event__pill::before{content:'✦';color:var(--acid)}
+
+@media (max-width:880px){
+  .tl-events{grid-template-columns:1fr}
+  .tl-events .tl-event:nth-child(even){border-left:none;padding-left:0}
+  .tl-events .tl-event:nth-child(odd){padding-right:0}
+  .tl-era__head{grid-template-columns:1fr;gap:14px}
+  .tl-era__count{text-align:left}
+}
+
+/* Featured success block within timeline */
+.tl-featured{
+  margin-top:24px;padding:36px 40px;
+  background:linear-gradient(135deg,var(--teal-deep),var(--teal));
+  border-left:4px solid var(--acid);
+  display:grid;grid-template-columns:auto 1fr auto;gap:36px;align-items:center;
+  position:relative;overflow:hidden;
+}
+.tl-featured::before{
+  content:'FEATURED';position:absolute;top:14px;right:18px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.2em;color:var(--acid);opacity:.7;
+  z-index:2;
+}
+.tl-featured::after{
+  content:'';position:absolute;right:-8%;bottom:-40%;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(110,21,102,.40),transparent 70%);
+  pointer-events:none;
+}
+.tl-featured > *{position:relative;z-index:1}
+.tl-featured__flag{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--bone);color:var(--ink);
+  display:grid;place-items:center;
+  font-family:var(--serif);font-style:italic;font-size:24px;
+}
+.tl-featured h4{
+  font-family:var(--serif);font-weight:400;font-size:22px;letter-spacing:-.01em;
+  margin:0 0 6px;
+}
+.tl-featured h4 em{font-style:italic;color:var(--acid);font-variation-settings:"SOFT" 100,"WONK" 1}
+.tl-featured p{font-family:var(--kr-serif);font-weight:300;font-size:13px;line-height:1.6;opacity:.85;margin:0;max-width:60ch}
+.tl-featured__cta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acid)}
+@media (max-width:880px){.tl-featured{grid-template-columns:1fr;gap:14px}}
+
+/* ============ GLOBAL PARTNERS ============ */
+.global{background:var(--paper)}
+.glob-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:72px;align-items:start}
+.glob-text{position:sticky;top:120px}
+.glob-text h3{
+  font-family:var(--serif);font-weight:300;font-size:clamp(28px,3.6vw,52px);line-height:1.05;letter-spacing:-.02em;
+  margin:0 0 18px;font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.glob-text h3 em{font-style:italic;color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1}
+.glob-text p{font-family:var(--kr-serif);font-weight:300;font-size:15px;line-height:1.7;color:var(--ink-soft);margin:0 0 28px}
+.glob-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;border-top:1px solid var(--line);padding-top:24px}
+.glob-stat b{display:block;font-family:var(--serif);font-weight:300;font-size:48px;line-height:1;letter-spacing:-.04em;color:var(--teal);font-style:italic;font-variation-settings:"SOFT" 100,"opsz" 144,"WONK" 1}
+.glob-stat span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.65;margin-top:6px;display:inline-block}
+
+.glob-countries{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.country{
+  background:var(--paper);padding:24px 22px;
+  display:flex;flex-direction:column;gap:8px;
+  min-height:170px;position:relative;
+  transition:background .35s ease;cursor:pointer;
+}
+.country:hover{background:var(--bone)}
+.country__flag{
+  font-family:var(--serif);font-style:italic;font-weight:400;font-size:32px;
+  color:var(--teal);font-variation-settings:"SOFT" 100,"WONK" 1;
+  letter-spacing:-.02em;
+}
+.country__name{font-family:var(--serif);font-weight:500;font-size:16px;letter-spacing:-.01em;margin:0}
+.country__name small{display:block;font-family:var(--kr-sans);font-weight:400;font-size:11px;color:var(--ink-soft);opacity:.7;margin-top:2px}
+.country__partners{
+  margin-top:auto;font-family:var(--mono);font-size:10px;letter-spacing:.04em;
+  color:var(--terracotta);font-weight:500;line-height:1.5;
+}
+.country__index{
+  position:absolute;top:14px;right:18px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;opacity:.4;
+}
+
+@media (max-width:980px){
+  .glob-grid{grid-template-columns:1fr;gap:48px}
+  .glob-text{position:static}
+  .glob-countries{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:540px){.glob-countries{grid-template-columns:1fr}}
+
+/* ============ AWARDS / SHOWCASE ============ */
+.awards{background:var(--bone-warm);padding:120px var(--pad)}
+.awards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.award{
+  padding:28px 24px;border:1px solid var(--ink);
+  background:var(--paper);
+  display:flex;flex-direction:column;gap:12px;min-height:280px;
+  transition:transform .4s cubic-bezier(.7,0,.2,1),background .4s ease;
+}
+.award:hover{transform:translateY(-6px) rotate(-1deg);background:var(--ink);color:var(--bone)}
+.award:hover .award__icon{color:var(--acid)}
+.award:hover .award__year{color:var(--acid)}
+.award__icon{font-family:var(--serif);font-style:italic;font-size:54px;color:var(--terracotta);font-variation-settings:"SOFT" 100,"WONK" 1;line-height:1}
+.award__year{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--teal);font-weight:500;margin-top:auto}
+.award h4{font-family:var(--serif);font-weight:400;font-size:18px;letter-spacing:-.01em;margin:0;line-height:1.25}
+.award p{font-family:var(--kr-sans);font-weight:300;font-size:12px;line-height:1.5;margin:0;opacity:.8}
+@media (max-width:980px){.awards-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:540px){.awards-grid{grid-template-columns:1fr}}
+
+/* ============ CTA / FOOTER ============ */
+.cta{
+  padding:140px var(--pad);
+  background:var(--teal);color:var(--bone);
+  position:relative;overflow:hidden;
+}
+.cta::before{
+  content:'';position:absolute;right:-20%;top:-30%;
+  width:80vw;height:80vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,255,61,.15),transparent 60%);
+  pointer-events:none;
+}
+.cta::after{
+  content:'';position:absolute;left:-15%;bottom:-30%;
+  width:55vw;height:55vw;border-radius:50%;
+  background:radial-gradient(circle,rgba(110,21,102,.32),transparent 65%);
+  pointer-events:none;
+}
+.cta__inner{position:relative;display:grid;grid-template-columns:1.4fr 1fr;gap:80px;align-items:end}
+.cta__title{
+  font-family:var(--serif);font-weight:200;
+  font-size:clamp(48px,8vw,120px);line-height:.95;letter-spacing:-.04em;
+  margin:0;font-variation-settings:"SOFT" 30,"WONK" 1;
+}
+.cta__title em{font-style:italic;color:var(--acid);font-variation-settings:"SOFT" 100,"WONK" 1}
+.cta__sub{font-family:var(--kr-serif);font-weight:300;font-size:16px;line-height:1.7;opacity:.8;margin:24px 0 0;max-width:48ch}
+.cta__action{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.cta__action a{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:20px 32px;border-radius:999px;
+  background:var(--acid);color:var(--ink);
+  font-family:var(--serif);font-weight:500;font-size:18px;letter-spacing:-.01em;
+  transition:transform .25s ease;
+}
+.cta__action a:hover{transform:translateX(6px)}
+.cta__action a::after{content:'→';font-family:var(--sans);font-weight:300;font-size:22px}
+.cta__contact{font-family:var(--mono);font-size:12px;letter-spacing:.06em;opacity:.7;line-height:1.8}
+@media (max-width:880px){.cta__inner{grid-template-columns:1fr;gap:48px}}
+
+footer{background:var(--ink);color:var(--bone);padding:64px var(--pad) 32px}
+.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;border-bottom:1px solid var(--line-cream);padding-bottom:48px;margin-bottom:24px}
+.foot__brand{display:flex;flex-direction:column;gap:18px}
+.foot__brand-mark{display:flex;align-items:center;gap:14px;font-family:var(--serif);font-weight:400;font-size:24px}
+.foot__brand-mark span{
+  width:36px;height:36px;border-radius:50%;background:var(--teal);color:var(--bone);
+  display:grid;place-items:center;font-style:italic;font-size:16px;
+  font-variation-settings:"SOFT" 100,"WONK" 1;
+  position:relative;
+  flex:none;
+}
+.foot__brand-mark span::after{
+  content:'';position:absolute;top:0;right:0;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--violet);
+  border:2px solid var(--ink);
+  box-sizing:content-box;
+}
+.foot__brand p{font-family:var(--kr-serif);font-weight:300;font-size:13px;line-height:1.7;opacity:.7;margin:0;max-width:38ch}
+.foot__col h5{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin:0 0 16px;font-weight:500}
+.foot__col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.foot__col a{opacity:.85;transition:opacity .2s,padding-left .2s ease}
+.foot__col a:hover{opacity:1;padding-left:6px;color:var(--acid)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
+@media (max-width:880px){.foot{grid-template-columns:1fr 1fr;gap:32px}}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .8s ease,transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal-stagger.in > *{opacity:1;transform:none}
+.reveal-stagger.in > *:nth-child(1){transition-delay:0s}
+.reveal-stagger.in > *:nth-child(2){transition-delay:.08s}
+.reveal-stagger.in > *:nth-child(3){transition-delay:.16s}
+.reveal-stagger.in > *:nth-child(4){transition-delay:.24s}
+.reveal-stagger.in > *:nth-child(5){transition-delay:.32s}
+.reveal-stagger.in > *:nth-child(6){transition-delay:.40s}
+.reveal-stagger.in > *:nth-child(7){transition-delay:.48s}
+.reveal-stagger.in > *:nth-child(8){transition-delay:.56s}
+.reveal-stagger.in > *:nth-child(9){transition-delay:.64s}
+.reveal-stagger.in > *:nth-child(10){transition-delay:.72s}
+.reveal-stagger.in > *:nth-child(11){transition-delay:.80s}
+.reveal-stagger.in > *:nth-child(12){transition-delay:.88s}
+
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- =================== NAV =================== -->
+<nav class="nav">
+  <a href="#top" class="nav__brand">
+    <span class="nav__mark">H</span>
+    HNFi <small>Corp.</small>
+  </a>
+  <div class="nav__menu">
+    <a href="#philosophy">Philosophy</a>
+    <a href="#colorsystem">Colors</a>
+    <a href="#about-i">About i</a>
+    <a href="#competencies">Competencies</a>
+    <a href="#business">Business</a>
+    <a href="#timeline">Milestones</a>
+    <a href="#global">Global</a>
+  </div>
+  <a href="#contact" class="nav__cta">Stay Connected</a>
+</nav>
+
+<!-- =================== HERO =================== -->
+<header class="hero" id="top">
+  <div class="hero__meta">
+    <div><b>HNFi Corp.</b> — Hankook Natural Food Initiative</div>
+    <div class="hero__meta-right">
+      <b>EST. 2021</b><br/>
+      Seoul · Republic of Korea
+    </div>
+  </div>
+
+  <h1 class="hero__title reveal">
+    <span>Live</span>
+    <span class="l2"><em>Better,</em></span>
+    <span class="l3">Stay <em>Connected</em><span class="hero__connect-arc">!</span></span>
+  </h1>
+
+  <div class="hero__lead">
+    <p class="hero__lead-kr">
+      에이치앤파이(주)는 단순한 유통을 넘어 <b>데이터와 기술</b>로 자연의 가장 순수한 자원과 인간의 웰빙을 연결합니다.
+      자연의 검증된 가치를 통해 더 나은 일상을 실현하고 (Live Better),
+      데이터 기반 기술로 글로벌 자원·시장·소비자를 정밀하게 연결합니다 (Stay Connected).
+    </p>
+    <div class="hero__stats reveal-stagger">
+      <div class="hero__stat"><b>12</b><span>Countries</span></div>
+      <div class="hero__stat"><b>30+</b><span>Retail Channels</span></div>
+      <div class="hero__stat"><b>4</b><span>Major Awards</span></div>
+    </div>
+  </div>
+
+  <div class="hero__scroll">SCROLL</div>
+</header>
+
+<!-- =================== TICKER =================== -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span>Costco Korea</span>
+    <span>Biedronka Poland</span>
+    <span>Farm Boy Canada</span>
+    <span>7-Eleven Hong Kong</span>
+    <span>FamilyMart Taiwan</span>
+    <span>Amazon US</span>
+    <span>Qoo10 Japan</span>
+    <span>Galleria</span>
+    <span>Shinsegae</span>
+    <span>Hyundai To Home</span>
+    <span>Military Canteen PX</span>
+    <span>CJ OnStyle</span>
+    <span>GS Home Shopping</span>
+    <span>Koha Foods Hawaii</span>
+    <span>T&amp;T Supermarket</span>
+    <span>Line Gift JP</span>
+    <!-- duplicate for seamless loop -->
+    <span>Costco Korea</span>
+    <span>Biedronka Poland</span>
+    <span>Farm Boy Canada</span>
+    <span>7-Eleven Hong Kong</span>
+    <span>FamilyMart Taiwan</span>
+    <span>Amazon US</span>
+    <span>Qoo10 Japan</span>
+    <span>Galleria</span>
+    <span>Shinsegae</span>
+    <span>Hyundai To Home</span>
+    <span>Military Canteen PX</span>
+    <span>CJ OnStyle</span>
+    <span>GS Home Shopping</span>
+    <span>Koha Foods Hawaii</span>
+    <span>T&amp;T Supermarket</span>
+    <span>Line Gift JP</span>
+  </div>
+</div>
+
+<!-- =================== PHILOSOPHY =================== -->
+<section class="philosophy" id="philosophy">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>01</b></div>
+    <h2 class="section__title">Philosophy &amp; <em>Vision</em></h2>
+  </div>
+
+  <div class="phi-grid">
+    <p class="phi-statement reveal">
+      We <em>transcend</em> traditional distribution by leveraging
+      <span class="acid">data and technology</span> to bridge the gap between
+      nature's <em>purest resources</em> and human well-being.
+    </p>
+
+    <div class="phi-cards">
+      <div class="phi-card reveal">
+        <div class="phi-card__label">Mission<b>—</b></div>
+        <div>
+          <h3>For a sustainable future</h3>
+          <p>
+            인류의 건강한 일상과 지속 가능한 미래에 기여하는
+            천연 식재료와 혁신적인 소비재를 발굴합니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="phi-card reveal">
+        <div class="phi-card__label">Vision<b>—</b></div>
+        <div>
+          <h3>The No.1 Food-Tech Initiative</h3>
+          <p>
+            글로벌 유통 데이터와 푸드 엔지니어링을 통해
+            시장의 수요를 정밀하게 구현하는
+            세계 1위 푸드테크 이니셔티브가 됩니다.
+          </p>
+        </div>
+      </div>
+
+      <div class="phi-card reveal">
+        <div class="phi-card__label">Slogan<b>—</b></div>
+        <div>
+          <h3>Live Better, Stay Connected</h3>
+          <p>
+            자연의 검증된 가치를 통해 건강한 라이프스타일을 실현하고 (Live Better),
+            데이터 기반 기술로 글로벌 자원·시장·소비자를 정밀하게 연결합니다 (Stay Connected).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slogan-block reveal">
+    <div class="slogan-block__label">Brand Philosophy<br/>2026 —</div>
+    <div class="slogan-block__text">
+      “To discover natural ingredients and innovative consumer goods that contribute to the
+      <em>healthy daily lives</em> of humanity and a sustainable future.”
+    </div>
+  </div>
+</section>
+
+<!-- =================== COLOR SYSTEM =================== -->
+<section class="colorsystem" id="colorsystem">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>02</b></div>
+    <h2 class="section__title">Color <em>System</em></h2>
+  </div>
+
+  <div class="cs-intro">
+    <div class="reveal">
+      <h3>다섯 색은 <em>하나의 약속</em>입니다.</h3>
+    </div>
+    <p class="reveal">
+      HNFi의 다섯 시그니처 컬러는 단순한 디자인 요소가 아니라
+      <b>회사가 일하는 방식의 시각화</b>입니다.
+      자연에서 출발해, 데이터로 정밀하게 가공되고, 산지의 손길을 거쳐,
+      정직한 클린라벨에 담겨, 큐레이션된 시그니처로 완성되는 —
+      HNFi의 모든 사이클이 이 다섯 색에 응축되어 있습니다.
+    </p>
+  </div>
+
+  <div class="cs-grid reveal-stagger">
+    <article class="cs-card" data-color="teal">
+      <div class="cs-card__chip">
+        <span class="cs-card__chip-num">01 / Roots</span>
+      </div>
+      <div class="cs-card__body">
+        <div class="cs-card__hex">#0E3B36 — Deep Forest Teal</div>
+        <h3 class="cs-card__name">자연의 뿌리<span class="cs-card__name-en">Roots of Nature</span></h3>
+        <div class="cs-card__keywords"><span>Nature</span><span>Trust</span><span>Depth</span></div>
+        <p class="cs-card__desc">
+          깊은 숲의 그늘, 차분한 호수, 안정된 토양에서 추출한 색.
+          "Hankook Natural"의 정체성을 가장 직접적으로 표현하는 메인 컬러.
+        </p>
+        <div class="cs-card__copy">"자연의 깊이는 흔들리지 않습니다."</div>
+      </div>
+    </article>
+
+    <article class="cs-card" data-color="acid">
+      <div class="cs-card__chip">
+        <span class="cs-card__chip-num">02 / Pulse</span>
+      </div>
+      <div class="cs-card__body">
+        <div class="cs-card__hex">#D4FF3D — Acid Yellow</div>
+        <h3 class="cs-card__name">데이터 펄스<span class="cs-card__name-en">Data Pulse</span></h3>
+        <div class="cs-card__keywords"><span>Data</span><span>Innovation</span><span>Now</span></div>
+        <p class="cs-card__desc">
+          전기적이고 디지털한 옐로-그린. 자연 자원에 데이터 기술이 더해지는
+          순간의 에너지. HNFi가 Food-Tech Initiative임을 알리는 시그니처.
+        </p>
+        <div class="cs-card__copy">"자연을 데이터로 정밀하게 연결합니다."</div>
+      </div>
+    </article>
+
+    <article class="cs-card" data-color="terracotta">
+      <div class="cs-card__chip">
+        <span class="cs-card__chip-num">03 / Hands</span>
+      </div>
+      <div class="cs-card__body">
+        <div class="cs-card__hex">#C4633A — Terracotta</div>
+        <h3 class="cs-card__name">산지의 손길<span class="cs-card__name-en">Hands of the Land</span></h3>
+        <div class="cs-card__keywords"><span>Origin</span><span>Craft</span><span>People</span></div>
+        <p class="cs-card__desc">
+          흙과 햇빛에 구워진 토기의 색. 산지에서 직접 농산물을 매만지는
+          사람의 손, 그리고 그 손이 만들어내는 따뜻한 가치.
+        </p>
+        <div class="cs-card__copy">"산지의 손길이 글로벌의 식탁으로."</div>
+      </div>
+    </article>
+
+    <article class="cs-card" data-color="bone">
+      <div class="cs-card__chip">
+        <span class="cs-card__chip-num">04 / Honest</span>
+      </div>
+      <div class="cs-card__body">
+        <div class="cs-card__hex">#F1ECE0 — Bone Paper</div>
+        <h3 class="cs-card__name">정직의 캔버스<span class="cs-card__name-en">Honest Canvas</span></h3>
+        <div class="cs-card__keywords"><span>Honest</span><span>Pure</span><span>Clean-Label</span></div>
+        <p class="cs-card__desc">
+          표백되지 않은 원지(原紙)에서 영감받은 톤. Clean-Label 철학의
+          시각화. 다른 모든 컬러가 의미를 갖게 해주는 토대.
+        </p>
+        <div class="cs-card__copy">"무엇을 더하지 않을 것인가에서 신뢰는 시작됩니다."</div>
+      </div>
+    </article>
+
+    <article class="cs-card" data-color="violet">
+      <div class="cs-card__chip">
+        <span class="cs-card__chip-num">05 / Signature</span>
+      </div>
+      <div class="cs-card__body">
+        <div class="cs-card__hex">#6E1566 — Signature Violet</div>
+        <h3 class="cs-card__name">큐레이션의 자긍심<span class="cs-card__name-en">Curated Excellence</span></h3>
+        <div class="cs-card__keywords"><span>Premium</span><span>Curation</span><span>Pride</span></div>
+        <p class="cs-card__desc">
+          깊고 진중한 보랏빛. 역사적으로 장인의 색이었던 바이올렛은,
+          HNFi가 다루는 모든 제품과 파트너십의 큐레이션 기준을 상징합니다.
+        </p>
+        <div class="cs-card__copy">"선별된 것만이 시그니처가 됩니다."</div>
+      </div>
+    </article>
+  </div>
+
+  <div class="cs-flow reveal">
+    <div class="cs-flow__label">The HNFi Cycle — One Process, Five Colors</div>
+    <h3 class="cs-flow__title">
+      자연에서 출발해 <em>큐레이션된 시그니처</em>로 완성되는 —
+      HNFi의 일하는 방식 그 자체.
+    </h3>
+    <div class="cs-flow__steps">
+      <div class="cs-flow__step" data-c="teal">
+        <b>Step 01</b>
+        <h4>Roots</h4>
+        <p>원료 발굴 · 산지 소싱 · 자연 자원 확보</p>
+      </div>
+      <div class="cs-flow__step" data-c="acid">
+        <b>Step 02</b>
+        <h4>Data</h4>
+        <p>IDMS 분석 · 정밀 매칭 · 시장 수요 대응</p>
+      </div>
+      <div class="cs-flow__step" data-c="terracotta">
+        <b>Step 03</b>
+        <h4>Hands</h4>
+        <p>산지 협력 · 가공 · K-Food 정서 결합</p>
+      </div>
+      <div class="cs-flow__step" data-c="bone">
+        <b>Step 04</b>
+        <h4>Honest</h4>
+        <p>클린라벨 제조 · BFY 기준 · 인증 통과</p>
+      </div>
+      <div class="cs-flow__step" data-c="violet">
+        <b>Step 05</b>
+        <h4>Signature</h4>
+        <p>큐레이션 출시 · 글로벌 채널 · 어워드</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== ABOUT THE i =================== -->
+<section class="about-i" id="about-i">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>03</b></div>
+    <h2 class="section__title">About the <em>i</em></h2>
+  </div>
+
+  <div class="ai-grid">
+    <div class="ai-glyph reveal" aria-hidden="true">
+      i
+      <span class="ai-glyph__hex">HNF<b style="color:var(--violet-soft);font-style:italic;font-weight:300">i</b> · /파이/</span>
+    </div>
+
+    <div class="ai-content">
+      <h3 class="reveal">작은 글자, <em>가장 무거운 의미.</em></h3>
+      <p class="reveal">
+        HNFi의 'i'는 우리에게 가장 무거운 글자입니다.
+        Hankook · Natural · Food는 다른 회사도 쓸 수 있는 단어이지만,
+        'i'는 오직 HNFi의 정체성을 담는 글자입니다.
+        그래서 작게, 그러나 또렷하게 표시합니다 —
+        가장 큰 의미를 가장 의도적인 자리에 새기는 자신감으로.
+      </p>
+
+      <div class="ai-meanings reveal-stagger">
+        <div class="ai-meaning">
+          <div class="ai-meaning__symbol">i</div>
+          <div class="ai-meaning__body">
+            <h4>i = Initiative</h4>
+            <p>주도권을 갖고 먼저 움직이는 자. HNFi가 단순한 유통이 아니라 시장을 여는 이니셔티브임을 선언합니다.</p>
+          </div>
+          <div class="ai-meaning__num">01 / 정체성</div>
+        </div>
+
+        <div class="ai-meaning">
+          <div class="ai-meaning__symbol ai-meaning__symbol--pi">π</div>
+          <div class="ai-meaning__body">
+            <h4>i = π · 자연의 상수</h4>
+            <p>HNFi를 '파이'로 발음하는 이유. π처럼 자연이 만든 가장 보편적이고 정확한 가치를 다루겠다는 약속.</p>
+          </div>
+          <div class="ai-meaning__num">02 / 발음</div>
+        </div>
+
+        <div class="ai-meaning">
+          <div class="ai-meaning__symbol">i</div>
+          <div class="ai-meaning__body">
+            <h4>i = Individual</h4>
+            <p>영문 'i'는 한 사람을 가리키는 글자. 우리가 향하는 모든 한 사람의 일상 — 산지의 농부, 시장의 바이어, 식탁의 소비자.</p>
+          </div>
+          <div class="ai-meaning__num">03 / 사람</div>
+        </div>
+      </div>
+
+      <div class="ai-quote reveal">
+        “작게 쓰는 것이 약함이 아니라,
+        <em>가장 큰 것을 가장 작은 자리에 새기는 자신감입니다.</em>”
+        <small>— On the lower-case i</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CORE COMPETENCIES =================== -->
+<section class="competencies" id="competencies">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>04</b></div>
+    <h2 class="section__title">Core <em>Competencies</em></h2>
+  </div>
+
+  <div class="comp-intro">
+    <div class="reveal">
+      <span class="badge">The Data-Driven Advantage</span>
+      <p>
+        HNFi는 단순히 제품을 공급하지 않습니다.
+        글로벌 거대 기업의 엄격한 SOP에 최적화된
+        <b>Retail-Ready Solutions</b>을 제공합니다.
+      </p>
+    </div>
+    <p class="reveal">
+      We operate on a proprietary <em>IDMS — Integrated Data Management System</em>,
+      transforming distribution into a precise science.
+      Our framework integrates ingredient control, global food safety standards,
+      multi-region regulatory response, and rigorous testing &amp; analysis
+      into one unified pipeline.
+    </p>
+  </div>
+
+  <div class="comp-grid reveal-stagger">
+    <article class="comp-card">
+      <div class="comp-card__num">01 / Re-engineering</div>
+      <div class="comp-card__icon">℟</div>
+      <h3>Clean-Label <em>Lab</em></h3>
+      <p>글로벌 "Better-For-You(BFY)" 기준에 부합하도록 레시피를 재설계합니다. 기능성과 청정성을 동시에 갖춘 제품을 데이터 기반으로 구현합니다.</p>
+      <ul>
+        <li>BFY Standard Reformulation</li>
+        <li>Ingredient Optimization</li>
+        <li>Functional Recipe Engineering</li>
+      </ul>
+    </article>
+
+    <article class="comp-card">
+      <div class="comp-card__num">02 / Compliance</div>
+      <div class="comp-card__icon">§</div>
+      <h3>Compliance &amp; <em>SOP Data</em></h3>
+      <p>원료 관리, 글로벌 식품 안전 인증 체계, 다지역 규제 대응, 엄격한 시험·분석을 단일 데이터 파이프라인으로 통합 관리합니다. 어느 시장의 SOP에든 즉시 대응하는 시스템.</p>
+      <ul>
+        <li>Global Food Safety Standards</li>
+        <li>Multi-Region Regulatory Response</li>
+        <li>Integrated Testing &amp; Analysis</li>
+      </ul>
+    </article>
+
+    <article class="comp-card">
+      <div class="comp-card__num">03 / Brand Development</div>
+      <div class="comp-card__icon">✦</div>
+      <h3>Global PB &amp; <em>NB Developer</em></h3>
+      <p>주요 글로벌 리테일러의 Private Brand 기획·공급부터, 해외 푸드 스타트업의 National Brand 기획까지 — 브랜드를 함께 설계하는 파트너. Biedronka, Farm Boy에서 검증된 PB 역량 위에 NB 컨설팅 영역을 더했습니다.</p>
+      <ul>
+        <li>Private Brand for Tier-1 Retailers</li>
+        <li>National Brand for Global Startups</li>
+        <li>End-to-End Brand Planning &amp; Supply</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="idms-band reveal">
+    <div class="idms-band__tag">Proprietary System</div>
+    <div>
+      <h3 class="idms-band__title">IDMS — <em>Integrated Data Management System</em></h3>
+      <p class="idms-band__desc">
+        유통을 정밀과학으로 전환하는 HNFi의 독자 시스템.
+        원료 관리부터 인증, 시험·분석까지 단일 데이터 파이프라인으로 통합합니다.
+      </p>
+    </div>
+    <div></div>
+  </div>
+</section>
+
+<!-- =================== BUSINESS AREAS =================== -->
+<section class="business" id="business">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>05</b></div>
+    <h2 class="section__title">Business <em>Areas</em></h2>
+  </div>
+
+  <div class="biz-list">
+    <div class="biz-row reveal">
+      <div class="biz-row__num">A — 01</div>
+      <h3 class="biz-row__title">R&amp;D &amp; <em>Sourcing</em>
+        <small>연구개발 · 글로벌 소싱</small>
+      </h3>
+      <p class="biz-row__desc">
+        기능성 식품을 개발하고 전 세계의 천연 자원을 발굴합니다.
+        혈당 케어 개별인정형 원료 <b>Dangjo Chili Peppers</b>(당조고추)를 핵심으로,
+        Grand Teton Ancient Grains, Vanadium Golden Eggs 등 차별화된 원료를 확보합니다.
+      </p>
+      <div class="biz-row__tags">
+        <span class="tag-core">Dangjo Chili Peppers</span>
+        <span>Individually Approved</span>
+        <span>Functional Foods</span>
+        <span>Ancient Grains</span>
+        <span>Natural Resources</span>
+      </div>
+      <div class="biz-row__arrow">→</div>
+    </div>
+
+    <div class="biz-row reveal">
+      <div class="biz-row__num">A — 02</div>
+      <h3 class="biz-row__title">Global <em>Distribution</em>
+        <small>글로벌 유통 · 물류</small>
+      </h3>
+      <p class="biz-row__desc">
+        Costco, 7-Eleven, Military Canteen 등 Tier-1 리테일러의
+        Main Vendor로서 안정적인 공급망과 납품 체계를 운영합니다.
+      </p>
+      <div class="biz-row__tags">
+        <span>Costco Vendor</span>
+        <span>7-Eleven</span>
+        <span>Military Canteen PX</span>
+        <span>Main Vendor</span>
+      </div>
+      <div class="biz-row__arrow">→</div>
+    </div>
+
+    <div class="biz-row reveal">
+      <div class="biz-row__num">A — 03</div>
+      <h3 class="biz-row__title">Brand <em>Management</em>
+        <small>브랜드 매니지먼트</small>
+      </h3>
+      <p class="biz-row__desc">
+        전문 브랜드 포트폴리오를 운영합니다 —
+        Highball Nation, It's yum, After Down / AGI'O,
+        Tata &amp; Kuma, Grand Teton Ancient Grains.
+        자사 브랜드부터 글로벌 프리미엄 라인까지
+        각 카테고리의 정체성과 신뢰를 구축합니다.
+      </p>
+      <div class="biz-row__tags">
+        <span>Highball Nation</span>
+        <span>It's yum</span>
+        <span>After Down</span>
+        <span>AGI'O</span>
+        <span>Tata &amp; Kuma</span>
+        <span>Grand Teton Ancient Grains</span>
+      </div>
+      <div class="biz-row__arrow">→</div>
+    </div>
+
+    <div class="biz-row reveal">
+      <div class="biz-row__num">A — 04</div>
+      <h3 class="biz-row__title">Franchise <em>Operations</em>
+        <small>프랜차이즈 운영</small>
+      </h3>
+      <p class="biz-row__desc">
+        프리미엄 펫 케어 브랜드 Gaereoria(개러리아)와
+        K-Food 프랜차이즈 시스템을 운영합니다.
+      </p>
+      <div class="biz-row__tags">
+        <span>Gaereoria</span>
+        <span>Premium Pet Care</span>
+        <span>K-Food Franchise</span>
+      </div>
+      <div class="biz-row__arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== TIMELINE =================== -->
+<section class="timeline" id="timeline">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>06</b></div>
+    <h2 class="section__title">Key <em>Milestones</em></h2>
+  </div>
+
+  <div class="tl-intro reveal">
+    <p>2021년 설립 이래, HNFi는 매년 새로운 시장을 열어왔습니다. 일본·호주의 첫 수출에서 시작해, 폴란드 Biedronka의 Private Brand 공급, 캐나다 Farm Boy 냉동 김밥 PB까지 — 모든 이정표가 데이터 기반의 정밀한 실행으로 만들어졌습니다.</p>
+    <p>From the first exports to Japan and Australia in 2023, to the Private Brand supply chain at Biedronka Poland and the official Costco Korea vendor status — every milestone was engineered through data-driven precision and Retail-Ready Solutions.</p>
+  </div>
+
+  <!-- ERA 1 -->
+  <div class="tl-era">
+    <div class="tl-era__head reveal">
+      <div class="tl-era__years">21<span style="opacity:.4">—</span>22</div>
+      <h3 class="tl-era__chapter"><b>Chapter I</b>The Foundation</h3>
+      <div class="tl-era__count">Establishment Era<b>03</b>Key Events</div>
+    </div>
+
+    <div class="tl-events reveal-stagger">
+      <article class="tl-event" data-tag="vendor">
+        <div class="tl-event__date"><b>FEB</b>2021</div>
+        <div>
+          <h4>Establishment of <em>HNFi Corp.</em></h4>
+          <p>에이치앤파이(주) 설립. 자연 식재료와 데이터 기술의 융합 비전 출범.</p>
+          <div class="tl-event__pill">Founding</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="export">
+        <div class="tl-event__date"><b>SEP</b>2022</div>
+        <div>
+          <h4>Famous Soda <em>Exclusive Rights</em> (Australia)</h4>
+          <p>호주 페이머스소다(Famous Soda) 독점 유통·생산 계약 체결.</p>
+          <div class="tl-event__pill">Exclusive Partnership</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="vendor">
+        <div class="tl-event__date"><b>DEC</b>2022</div>
+        <div>
+          <h4>Strategic Pivot to <em>Food-Tech</em></h4>
+          <p>"HNFi Corp."로 사명 변경 후 전문 식품 제조·글로벌 유통 분야로 본격 진입.</p>
+          <div class="tl-event__pill">Strategic Pivot</div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ERA 2 -->
+  <div class="tl-era">
+    <div class="tl-era__head reveal">
+      <div class="tl-era__years">23<span style="opacity:.4">—</span>24</div>
+      <h3 class="tl-era__chapter"><b>Chapter II</b>Global Market Dominance</h3>
+      <div class="tl-era__count">Expansion Era<b>07</b>Key Events</div>
+    </div>
+
+    <div class="tl-events reveal-stagger">
+      <article class="tl-event" data-tag="export">
+        <div class="tl-event__date"><b>2023</b>—</div>
+        <div>
+          <h4>First Exports — <em>Japan &amp; Australia</em></h4>
+          <p>일본·호주 첫 수출 실행. Galleria, Shinsegae, Dragon City Hotel 등 프리미엄 채널 입점.</p>
+          <div class="tl-event__pill">Premium Retail Entry</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="export">
+        <div class="tl-event__date"><b>2024</b>—</div>
+        <div>
+          <h4>Multi-Continent <em>Expansion</em></h4>
+          <p>USA Asian Markets, T&amp;T Supermarket(Canada), FamilyMart(Taiwan) 등 글로벌 시장 확장.</p>
+          <div class="tl-event__pill">Global Expansion</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="pb">
+        <div class="tl-event__date"><b>2024</b>—</div>
+        <div>
+          <h4>Functional Labeled <em>Foods</em> Co-Developer</h4>
+          <p>한국식품클러스터 [기능성표시식품] 공동 개발사로 선정.</p>
+          <div class="tl-event__pill">R&amp;D Recognition</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="award">
+        <div class="tl-event__date"><b>2024</b>—</div>
+        <div>
+          <h4><em>3 Stars</em> at International Taste Institute</h4>
+          <p>벨기에 국제미식품평회 3관왕 수상. 'Idea Product Grand Prize'(Home &amp; Shopping) 동시 수상.</p>
+          <div class="tl-event__pill">Award Winning</div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Featured success block -->
+    <div class="tl-featured reveal">
+      <div class="tl-featured__flag">PL</div>
+      <div>
+        <h4>Featured Success — <em>Biedronka, Poland</em></h4>
+        <p>폴란드 최대 리테일 체인 Biedronka의 Private Brand로 캔김치 2종을 성공적으로 기획·공급(Vershold 파트너십). 전략적 글로벌 PB 디벨로퍼로서의 위상을 확립한 결정적 성과.</p>
+      </div>
+      <div class="tl-featured__cta">PB · 2 SKUs<br/>Canned Kimchi</div>
+    </div>
+  </div>
+
+  <!-- ERA 3 -->
+  <div class="tl-era">
+    <div class="tl-era__head reveal">
+      <div class="tl-era__years">25<span style="opacity:.4">—</span>26</div>
+      <h3 class="tl-era__chapter"><b>Chapter III</b>Scalability &amp; Innovation</h3>
+      <div class="tl-era__count">Acceleration Era<b>09</b>Key Events</div>
+    </div>
+
+    <div class="tl-events reveal-stagger">
+      <article class="tl-event" data-tag="vendor">
+        <div class="tl-event__date"><b>2025</b>—</div>
+        <div>
+          <h4><em>Costco Korea</em> Official Vendor</h4>
+          <p>코스트코 코리아 공식 벤더 등록. Hyundai To Home 동시 입점.</p>
+          <div class="tl-event__pill">Tier-1 Vendor</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="export">
+        <div class="tl-event__date"><b>2025</b>—</div>
+        <div>
+          <h4>Asia-Pacific <em>Supply Chain</em></h4>
+          <p>7-Eleven(Hong Kong), Koha Foods(Hawaii), Biedronka's PB(Poland) 공급망 확보.</p>
+          <div class="tl-event__pill">Supply Chain</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="vendor">
+        <div class="tl-event__date"><b>2025</b>—</div>
+        <div>
+          <h4>Direct-to-Consumer <em>Stores</em></h4>
+          <p>Amazon(US), Qoo10(JP), Line Gift(JP) 공식 스토어 런칭. D2C 글로벌 진출 본격화.</p>
+          <div class="tl-event__pill">D2C Launch</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="award">
+        <div class="tl-event__date"><b>2025</b>—</div>
+        <div>
+          <h4>K+ <em>Export Innovation</em> Award</h4>
+          <p>K+ 수출혁신상 (시장개척상) 수상. 벨기에 국제미식품평회 추가 수상.</p>
+          <div class="tl-event__pill">Award Winning</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="vendor">
+        <div class="tl-event__date"><b>2026</b>—</div>
+        <div>
+          <h4>Military Canteen <em>(PX)</em> Supplier</h4>
+          <p>군마트(PX) 공식 공급사 선정. CJ OnStyle, GS Home Shopping 벤더 등록.</p>
+          <div class="tl-event__pill">Public Supply</div>
+        </div>
+      </article>
+
+      <article class="tl-event" data-tag="pb">
+        <div class="tl-event__date"><b>2026</b>—</div>
+        <div>
+          <h4>Farm Boy <em>K-Gimbap PB</em></h4>
+          <p>캐나다 Farm Boy의 PB 냉동 K-김밥 수출 성사. 북미 PB 라인업 확장.</p>
+          <div class="tl-event__pill">PB Export</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =================== AWARDS =================== -->
+<section class="awards">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>07</b></div>
+    <h2 class="section__title">Awards &amp; <em>Recognition</em></h2>
+  </div>
+
+  <div class="awards-grid reveal-stagger">
+    <article class="award">
+      <div class="award__icon">K+</div>
+      <h4>Export Innovation</h4>
+      <p>K+ 수출혁신상 — Market Pioneer Category 시장개척상</p>
+      <div class="award__year">2025</div>
+    </article>
+    <article class="award">
+      <div class="award__icon">★</div>
+      <h4>1 Star Award</h4>
+      <p>International Taste Institute, Belgium — 벨기에 국제미식품평회 1관왕 추가 수상</p>
+      <div class="award__year">2025</div>
+    </article>
+    <article class="award">
+      <div class="award__icon">★★★</div>
+      <h4>3 Stars Award</h4>
+      <p>International Taste Institute, Belgium — 벨기에 국제미식품평회 3관왕</p>
+      <div class="award__year">2024</div>
+    </article>
+    <article class="award">
+      <div class="award__icon">✦</div>
+      <h4>Idea Product Grand Prize</h4>
+      <p>Home &amp; Shopping — 홈앤쇼핑 '24년 아이디어 상품 대상</p>
+      <div class="award__year">2024</div>
+    </article>
+  </div>
+</section>
+
+<!-- =================== GLOBAL PARTNERS =================== -->
+<section class="global" id="global">
+  <div class="section__head reveal">
+    <div class="section__num">Section <b>08</b></div>
+    <h2 class="section__title">Global <em>Presence</em></h2>
+  </div>
+
+  <div class="glob-grid">
+    <div class="glob-text reveal">
+      <h3>Connecting <em>12 countries</em><br/>through one network.</h3>
+      <p>HNFi는 미국, 캐나다, 호주, 폴란드, 일본, 홍콩, 대만, 브라질, 프랑스 등 12개국의 리테일러·디스트리뷰터와 파트너십을 구축하고 있습니다. 각 시장의 SOP에 맞춘 Retail-Ready Solutions으로 정밀하게 연결됩니다.</p>
+      <div class="glob-stats">
+        <div class="glob-stat"><b>12</b><span>Countries Active</span></div>
+        <div class="glob-stat"><b>30+</b><span>Retail Channels</span></div>
+        <div class="glob-stat"><b>4</b><span>Continents</span></div>
+        <div class="glob-stat"><b>2026</b><span>Year-Plus Track Record</span></div>
+      </div>
+    </div>
+
+    <div class="glob-countries reveal-stagger">
+      <div class="country">
+        <div class="country__index">01</div>
+        <div class="country__flag">USA</div>
+        <h4 class="country__name">United States<small>미국</small></h4>
+        <div class="country__partners">Amazon · Asian Markets<br/>Koha Foods (HI)</div>
+      </div>
+      <div class="country">
+        <div class="country__index">02</div>
+        <div class="country__flag">CAN</div>
+        <h4 class="country__name">Canada<small>캐나다</small></h4>
+        <div class="country__partners">Farm Boy · T&amp;T<br/>PB Frozen K-Gimbap</div>
+      </div>
+      <div class="country">
+        <div class="country__index">03</div>
+        <div class="country__flag">POL</div>
+        <h4 class="country__name">Poland<small>폴란드</small></h4>
+        <div class="country__partners">Biedronka PB<br/>Vershold Partnership</div>
+      </div>
+      <div class="country">
+        <div class="country__index">04</div>
+        <div class="country__flag">JPN</div>
+        <h4 class="country__name">Japan<small>일본</small></h4>
+        <div class="country__partners">Qoo10 · Line Gift<br/>First Export 2023</div>
+      </div>
+      <div class="country">
+        <div class="country__index">05</div>
+        <div class="country__flag">AUS</div>
+        <h4 class="country__name">Australia<small>호주</small></h4>
+        <div class="country__partners">First Export 2023<br/>Distribution Partners</div>
+      </div>
+      <div class="country">
+        <div class="country__index">06</div>
+        <div class="country__flag">HKG</div>
+        <h4 class="country__name">Hong Kong<small>홍콩</small></h4>
+        <div class="country__partners">7-Eleven<br/>Convenience Channel</div>
+      </div>
+      <div class="country">
+        <div class="country__index">07</div>
+        <div class="country__flag">TWN</div>
+        <h4 class="country__name">Taiwan<small>대만</small></h4>
+        <div class="country__partners">FamilyMart<br/>Convenience Channel</div>
+      </div>
+      <div class="country">
+        <div class="country__index">08</div>
+        <div class="country__flag">BRA</div>
+        <h4 class="country__name">Brazil<small>브라질</small></h4>
+        <div class="country__partners">Distribution Partners</div>
+      </div>
+      <div class="country">
+        <div class="country__index">09</div>
+        <div class="country__flag">FRA</div>
+        <h4 class="country__name">France<small>프랑스</small></h4>
+        <div class="country__partners">Distribution Partners</div>
+      </div>
+      <div class="country">
+        <div class="country__index">10</div>
+        <div class="country__flag">KOR</div>
+        <h4 class="country__name">Korea (HQ)<small>본사</small></h4>
+        <div class="country__partners">Costco · Galleria · Shinsegae<br/>Hyundai To Home · PX · CJ · GS</div>
+      </div>
+      <div class="country">
+        <div class="country__index">11</div>
+        <div class="country__flag">+2</div>
+        <h4 class="country__name">Other Markets<small>기타 시장</small></h4>
+        <div class="country__partners">Multi-region Network<br/>Distribution Partners</div>
+      </div>
+      <div class="country" style="background:var(--ink);color:var(--bone)">
+        <div class="country__index" style="opacity:.6">∞</div>
+        <div class="country__flag" style="color:var(--acid)">+</div>
+        <h4 class="country__name" style="color:var(--bone)">Stay Connected<small style="color:var(--acid);opacity:.9">새로운 시장과 함께</small></h4>
+        <div class="country__partners" style="color:var(--acid)">Open for new<br/>partnerships →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== CTA =================== -->
+<section class="cta" id="contact">
+  <div class="cta__inner">
+    <div class="reveal">
+      <h2 class="cta__title">
+        Stay <em>Connected</em><br/>
+        to the future of food.
+      </h2>
+      <p class="cta__sub">
+        Tier-1 리테일러를 위한 Retail-Ready Solutions부터 Private / National Brand 기획,
+        글로벌 공급까지 — HNFi와 함께 다음 시장을 여세요.
+      </p>
+    </div>
+    <div class="cta__action reveal">
+      <a href="mailto:hnficorp@gmail.com">Contact Us</a>
+      <div class="cta__contact">
+        hnficorp@gmail.com<br/>
+        Seoul · Republic of Korea<br/>
+        Hankook Natural Food Initiative Corp.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer>
+  <div class="foot">
+    <div class="foot__brand">
+      <div class="foot__brand-mark"><span>H</span> HNFi Corp.</div>
+      <p>Hankook Natural Food Initiative Corp. — The No.1 Food-Tech Initiative connecting nature's purest resources to global markets through data-driven precision.</p>
+    </div>
+    <div class="foot__col">
+      <h5>Sections</h5>
+      <ul>
+        <li><a href="#philosophy">Philosophy</a></li>
+        <li><a href="#colorsystem">Color System</a></li>
+        <li><a href="#about-i">About the i</a></li>
+        <li><a href="#competencies">Competencies</a></li>
+        <li><a href="#business">Business</a></li>
+        <li><a href="#timeline">Milestones</a></li>
+        <li><a href="#global">Global</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h5>Brands</h5>
+      <ul>
+        <li><a href="#">Highball Nation</a></li>
+        <li><a href="#">It's yum</a></li>
+        <li><a href="#">After Down / AGI'O</a></li>
+        <li><a href="#">Tata &amp; Kuma</a></li>
+        <li><a href="#">Grand Teton Ancient Grains</a></li>
+        <li><a href="#">Gaereoria</a></li>
+      </ul>
+    </div>
+    <div class="foot__col">
+      <h5>Connect</h5>
+      <ul>
+        <li><a href="mailto:hnficorp@gmail.com">hnficorp@gmail.com</a></li>
+        <li><a href="#">Global Partnership</a></li>
+        <li><a href="#">PB / NB Inquiry</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 HNFi Corp. All rights reserved.</div>
+    <div>Live Better, Stay Connected ✦</div>
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:.15,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el=>io.observe(el));
+
+// Trigger hero animation immediately
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.hero .reveal, .hero .reveal-stagger').forEach(el=>el.classList.add('in'));
+});
+
+// Nav style on scroll
+const nav = document.querySelector('.nav');
+let lastY = 0;
+window.addEventListener('scroll',()=>{
+  const y = window.scrollY;
+  if(y>40){ nav.style.padding='12px var(--pad)'; }
+  else{ nav.style.padding='18px var(--pad)'; }
+  lastY = y;
+},{passive:true});
+</script>
+</body>
+</html>
